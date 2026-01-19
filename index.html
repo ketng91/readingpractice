@@ -1,134 +1,390 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khoá THPT - Lớp Anh thầy Kết</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<title>Reading Practice</title>
+
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #fff8f0;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
 
-  header {
-    background-color: #ffd6ba; /* pastel cam nhạt */
-    color: #7a4e3e;
-    padding: 40px 20px;
-    font-size: 36px;
-    font-weight: bold;
-  }
+#homeBtn {
+  font-size: 26px;
+  text-decoration: none;
+  margin-right: 10px;
+  color: #fff;
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  transition: 0.25s;
+}
 
-  .button-container {
-    margin: 50px auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    max-width: 900px;
-  }
+#homeBtn:hover {
+  color: #ffd700;
+  cursor: pointer;
+}
 
-  .nav-button {
-    background-color: #a0e7e5; /* pastel xanh nhạt */
-    color: #3a3a3a;
-    border: none;
-    padding: 20px 25px;
-    font-size: 20px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
-    text-decoration: none;
-    flex: 1 1 200px;
-    max-width: 220px;
-  }
 
-  .nav-button:hover {
-    background-color: #ffb3ba; /* pastel hồng nhạt khi hover */
-    transform: translateY(-3px);
-  }
 
-  .social-section {
-    margin-top: 60px;
-  }
+body {font-family: Arial, sans-serif;margin:0;background:#f5f5f5;}
+header {background:#213C51;color:#fff;padding:10px;text-align:center;}
+#timer {font-size:20px;margin-top:5px;}
 
-  .social-section h2 {
-    font-size: 24px;
-    color: #7a4e3e;
-    margin-bottom: 20px;
-  }
+.container {width:90%;max-width:900px;margin:20px auto;background:#fff;
+  padding:20px;border-radius:8px;box-shadow:0 0 8px rgba(0,0,0,0.1);}
 
-  .social-icons a {
-    display: inline-block;
-    margin: 0 15px;
-    font-size: 40px;
-    color: #a0e7e5; /* pastel xanh nhạt */
-    transition: color 0.3s, transform 0.2s;
-  }
+.exercise-title {font-size:22px;margin-bottom:15px;font-weight:bold;color:#333;}
 
-  .social-icons a:hover {
-    color: #ffb3ba; /* pastel hồng nhạt khi hover */
-    transform: translateY(-5px);
-  }
+.reading-box{
+  border:1px solid #ccc;
+  padding:10px;
+  height:300px;
+  overflow-y:auto;
+  border-radius:6px;
+  background:#fafafa;
+  margin-bottom:10px;
+  font-size:20px;
+}
+.questions-box{
+border:1px solid #ccc;padding:10px;height:160px;overflow-y:auto;
+  border-radius:6px;background:#ECF4E8;margin-bottom:10px;  font-size:20px;
+}
 
-  footer {
-    margin-top: 50px;
-    padding: 20px;
-    font-size: 16px;
-    color: #555;
-    background-color: #fff0e1;
-  }
+.question{margin-bottom:12px;}
+#questions label {display:block;margin:6px 0 6px 10px;line-height:1.4;}
+.result-box{border:1px solid #aaa;background:#eef;padding:12px;margin-top:12px;
+  border-radius:6px;white-space:pre-line;}
 
-  @media (max-width: 600px) {
-    .nav-button {
-      flex: 1 1 100%;
-      max-width: 90%;
-      font-size: 18px;
-      padding: 15px 10px;
-    }
+.buttons {
+  text-align: left;
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
 
-    .social-icons a {
-      font-size: 35px;
-      margin: 0 10px;
-    }
-  }
+.buttons .right { margin-left: auto; }
+
+/* Nút + hover */
+button {
+  font-size: 18px;
+  padding: 10px 18px;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+button:hover { background-color:#e0e0e0; cursor:pointer;}
+
+.pagination{text-align:center;margin-top:15px;}
+.pagination button{padding:6px 12px;margin:2px;}
+
+.modal{
+  position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);
+  display:none;justify-content:center;align-items:center;}
+.modal-content{
+ background:#fff;padding:18px;border-radius:6px;text-align:center;width:280px;
+ box-shadow:0 0 8px rgba(0,0,0,.3);}
+.modal button{margin:5px;padding:6px 14px;}
+
+.center{text-align:center;}
+
+
+
+.highlight {
+  background: yellow;
+}
+/* Menu highlight nhỏ gọn */
+#textMenu {
+  position: absolute;
+  display: none;
+  background: #fff;
+  border: 1px solid #555;
+  padding: 4px 6px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,.25);
+  z-index: 999;
+}
+
+/* Nút nhỏ */
+#textMenu button {
+  font-size: 12px;
+  padding: 2px 6px;
+  margin: 2px 0;
+  border: none;
+  background: #e8e8e8;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#textMenu button:hover {
+  background: #d6d6d6;
+}
+
+
+#noteBox {
+  width: 90%;
+  height: 120px;
+  margin-top: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 18px;
+  color: #F63049;
+font-family: "Arial", sans-serif;
+  background: #fffef7;
+  resize: vertical;
+}
+#noteBox:focus {
+  outline: none;
+  border-color: #4a90e2;
+  background: #fff;
+}
+
+
+
 </style>
 </head>
-<body>
 
+<body>
 <header>
-  Lớp Anh thầy Kết - Tuyển sinh 2k8 Lớp tổng ôn THPTQG
+<a id="homeBtn" href="https://ketng91.github.io/khoathpt/">🏠</a>
+
+  <h2>Luyện đọc hiểu THPTQG - Lớp Anh thầy Kết</h2>
+  <div id="timer">00:00</div>
 </header>
 
-<div class="button-container">
-  <a href="#" class="nav-button">Giới thiệu</a>
-  <a href="#" class="nav-button">Các khoá học</a>
-  <a href="https://ketng91.github.io/khoathpt_grammar/" class="nav-button">Trắc nghiệm Grammar</a>
-  <a href="https://ketng91.github.io/khoathpt_tuvung/" class="nav-button">Trắc nghiệm Từ vựng</a>
-  <a href="https://ketng91.github.io/essaywriting/" class="nav-button">Đọc Điền Đoạn văn</a>
-  <a href="https://ketng91.github.io/readingpractice/" class="nav-button">Đọc hiểu</a>
-  <a href="https://ketng91.github.io/khoawriting/" class="nav-button">Các dạng khác</a>
-  <a href="https://ketng91.github.io/khoathpt/" class="nav-button">Thi thử</a>
-  <a href="https://ketng91.github.io/khoathpt/" class="nav-button">Từ vựng</a>
-  <a href="https://ketng91.github.io/gametuvung/" class="nav-button">Game từ vựng</a> 
-  <a href="#" class="nav-button">Ket's notes</a>
+<!-- Menu highlight -->
+<div id="textMenu" class="menu">
+  <button onclick="applyHighlight()">Highlight</button>
+  <button onclick="removeHighlight()">Remove</button>
 </div>
 
-<!-- ====== Phần MXH ====== -->
-<div class="social-section">
-  <h2>MXH: Lớp Anh thầy Kết</h2>
-  <div class="social-icons">
-    <a href="https://www.facebook.com/profile.php?id=100095128431844" target="_blank" title="Facebook"><i class="fab fa-facebook-square"></i></a>
-    <a href="https://www.youtube.com/@LopmonAnhthayKet" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-    <a href="https://www.tiktok.com/@lopanhthayket" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+<div class="container">
+  <div class="exercise-title" id="title">Test 1</div>
+  <div class="reading-box" id="reading"></div>
+  <div class="questions-box" id="questions"></div>
+
+  <div id="resultArea"></div>
+
+  <div class="buttons">
+    <button onclick="prevQ()">Back</button>
+    <button onclick="nextQ()">Next</button>
+    <button class="right" onclick="openConfirm()">Submit</button>
+  </div>
+
+  <div class="pagination" id="pagination"></div>
+
+<textarea id="noteBox" placeholder="Ghi chú khi làm bài..."></textarea>
+
+</div>
+
+<!-- modal -->
+<div class="modal" id="confirmBox">
+  <div class="modal-content">
+    <p>Bạn muốn nộp bài?</p>
+    <button onclick="submitTest()">Yes</button>
+    <button onclick="closeConfirm()">No</button>
   </div>
 </div>
 
-<footer>
-  © 2026 Lớp Anh thầy Kết. All rights reserved.
-</footer>
+<script>
+// TIMER
+let sec=0;setInterval(()=>{sec++;let m=Math.floor(sec/60),s=sec%60;
+document.getElementById('timer').innerText=
+(m<10?'0'+m:m)+':'+(s<10?'0'+s:s)},1000);
+
+// DATA có explain
+const exercises={
+1:{
+passage:`<h3 <b>Urban Green Spaces: A Necessity for Modern Cities</b> </h3>
+Access to nature has become increasingly important for urban populations. In recent years, urban green spaces have gained significant attention as vital components of city planning. Many city dwellers seek access to parks and gardens for recreational purposes and to improve their quality of life. Studies show that green spaces contribute positively to mental and physical health, providing a refuge from the concrete surroundings.
+
+Urban areas often face challenges due to high population density and limited natural environments. Consequently, cities are increasingly recognizing the importance of integrating green areas into their development plans. Factors such as community gardens, rooftop gardens, and public parks can enhance urban biodiversity and provide essential habitats for various species.
+
+Moreover, green spaces play a crucial role in mitigating urban heat and improving air quality. Trees and plants absorb carbon dioxide and release oxygen, which can help combat pollution. Additionally, they offer shade and cooling effects, making cities more livable during hot weather.
+
+Despite the benefits, the creation and maintenance of urban green spaces are not without challenges. Limited land availability, budget constraints, and competing development interests can hinder the establishment of these areas. Nonetheless, with effective planning and community involvement, cities can develop sustainable green spaces that serve their residents well.
+
+In conclusion, urban green spaces are essential for enhancing the well-being of city residents, improving environmental quality, and fostering community interaction. Prioritizing their development is crucial for building healthier and more sustainable urban environments.`,
+questions:[
+{q:"In which paragraph does the writer mention examples of green urban space?",
+options:["Paragraph 2","Paragraph 3","Paragraph 1","Paragraph 4"],
+answer:1, explain:"The text states clearly that the Industrial Revolution began in Britain."},
+{q:"The word <b><u>mitigating</u></b> in paragraph 3 is OPPOSITE in meaning to ___",
+options:["A. worsening","B. maintaining","C. reducing","D. balancing"],
+answer:2, explain:"Machines made production faster and cheaper, reducing cost of goods."},
+{q:"Which of the following is <b><u>TRUE</u></b> according to the passage?",
+options:["A. Urban green spaces are only beneficial for wildlife.","B. All cities have successfully integrated green spaces.","C. Cities should prioritize green spaces despite development pressures.","D. Community gardens are ineffective in urban planning."],
+answer:2, explain:"Rapid industrial growth caused pollution and dangerous conditions."}
+]},
+2:{
+passage:`Forests are essential to life on Earth.
+They produce oxygen, store carbon, and provide habitat for millions of species.
+Sadly, large areas are being cut down for farming, mining and urban development.`,
+questions:[
+{q:"Forests produce…",
+options:["Oil","Oxygen","Gold","Plastic"],
+answer:1, explain:"Forests are highlighted as oxygen producers in the text."},
+{q:"A reason forests are cut down?",
+options:["To improve hiking trails","To reduce oxygen","For farming & development","To plant more trees"],
+answer:2, explain:"The passage states farming, mining and building cities as causes."},
+{q:"Main idea of passage?",
+options:["Forests are useless","Forests are dangerous","Forests are vital but disappearing","Only cities matter"],
+answer:2, explain:"It stresses forests are essential, yet being destroyed."}
+]}
+};
+// STATE
+let currentTest=1,currentQuestionIndex=0;
+let savedAnswers={}; // lưu kiểu { "1-0":2 , "1-1":1 , "2-3":0 }
+
+function loadTest(num){
+ currentTest=num;
+document.getElementById('title').innerText=
+'Read the following passage and mark the letter A, B, C or D to indicate the best answer to each of the following questions.';
+
+ document.getElementById('resultArea').innerHTML='';
+ currentQuestionIndex=0;
+ document.getElementById('reading').innerHTML = exercises[num].passage.replace(/\n/g,'<br>');
+ renderQuestions(); renderPagination();
+}
+
+function renderQuestions(){
+ const q=exercises[currentTest].questions[currentQuestionIndex];
+ let key=currentTest+'-'+currentQuestionIndex;
+ let html='<div class="question">'+(currentQuestionIndex+1)+'. '+ q.q +'</div>';
+
+ q.options.forEach((opt,i)=>{
+   const checked = savedAnswers[key]==i ? 'checked' : '';
+   html+=`<label><input type="radio" name="q${currentQuestionIndex}"
+    value="${i}" ${checked} onclick="saveAnswer(${i})"> ${opt}</label>`;
+ });
+
+ document.getElementById('questions').innerHTML=html;
+}
+
+function saveAnswer(v){
+ savedAnswers[currentTest+'-'+currentQuestionIndex]=v;
+}
+
+function nextQ(){
+ if(currentQuestionIndex < exercises[currentTest].questions.length-1){
+   currentQuestionIndex++;
+   renderQuestions();
+ }
+}
+function prevQ(){
+ if(currentQuestionIndex>0){
+   currentQuestionIndex--;
+   renderQuestions();
+ }
+}
+
+function renderPagination(){
+ let h='';
+ for(let k in exercises)
+   h+=`<button onclick="loadTest(${k})">Passage ${k}</button>`;
+ document.getElementById('pagination').innerHTML=h;
+}
+
+// Confirm box
+function openConfirm(){document.getElementById('confirmBox').style.display='flex';}
+function closeConfirm(){document.getElementById('confirmBox').style.display='none';}
+
+// SUBMIT
+function submitTest(){
+ closeConfirm();
+ const qs=exercises[currentTest].questions;
+ let correct=0,txt='';
+
+ for(let i=0;i<qs.length;i++){
+   let key=currentTest+'-'+i;
+   let chosen=savedAnswers[key];
+   let ok=chosen==qs[i].answer;
+   if(ok) correct++;
+   txt+=`${i+1}. ${qs[i].q}
+Your answer: ${chosen!=null?qs[i].options[chosen]:'(no answer)'}
+Correct answer: ${qs[i].options[qs[i].answer]}
+${ok?'✓ Correct':'✗ Wrong'}
+Giải thích: ${qs[i].explain}\n\n`;
+ }
+
+ document.getElementById('resultArea').innerHTML=
+ `<div class="result-box">Kết quả: ${correct}/${qs.length}\n\n${txt}</div>`;
+}
+
+let selectedRange = null;
+
+// Hiện menu khi chọn chữ hoặc click highlight
+document.addEventListener('mouseup', function(e) {
+  const sel = window.getSelection();
+
+  // Nếu click vào chữ đã highlight
+  if (e.target.classList.contains('highlight')) {
+    selectedRange = null;
+    showMenu(e.pageX, e.pageY);
+    selectedRange = e.target;
+    return;
+  }
+
+  // Nếu không select gì thì đóng menu
+  if (!sel.toString().trim()) {
+    hideMenu();
+    return;
+  }
+
+  selectedRange = sel.getRangeAt(0);
+  showMenu(e.pageX, e.pageY);
+});
+
+// Highlight
+function applyHighlight() {
+  if (!selectedRange) return;
+
+  // Nếu click highlight đang tồn tại → bỏ highlight trước rồi tô lại
+  if (selectedRange instanceof HTMLElement && selectedRange.classList.contains('highlight')) {
+    removeHighlight();
+    return;
+  }
+
+  const span = document.createElement('span');
+  span.className = 'highlight';
+  span.appendChild(selectedRange.extractContents());
+  selectedRange.insertNode(span);
+
+  selectedRange = null;
+  hideMenu();
+}
+
+// Remove highlight
+function removeHighlight() {
+  if (!selectedRange) return;
+
+  if (selectedRange instanceof HTMLElement && selectedRange.classList.contains('highlight')) {
+    const parent = selectedRange.parentNode;
+    while (selectedRange.firstChild) {
+      parent.insertBefore(selectedRange.firstChild, selectedRange);
+    }
+    parent.removeChild(selectedRange);
+  }
+  selectedRange = null;
+  hideMenu();
+}
+
+// menu show/hide
+function showMenu(x, y) {
+  const box = document.getElementById('textMenu');
+  box.style.left = x + 'px';
+  box.style.top = y + 'px';
+  box.style.display = 'block';
+}
+function hideMenu() {
+  document.getElementById('textMenu').style.display = 'none';
+}
+
+
+
+window.onload=()=>loadTest(1);
+</script>
+
+
 
 </body>
 </html>
