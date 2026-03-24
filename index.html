@@ -174,6 +174,25 @@ font-family: "Arial", sans-serif;
 
 <textarea id="noteBox" placeholder="Ghi chú khi làm bài..."></textarea>
 
+
+<!-- Bài dịch toggle -->
+<div style="margin-top:10px;">
+  <button onclick="toggleTranslation()">📖 Bài dịch</button>
+</div>
+
+<div id="translationBox" style="
+  display:none;
+  margin-top:10px;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  background:#f9f9ff;
+  font-size:18px;
+  line-height:1.6;
+">
+</div>
+
+
 </div>
 
 <!-- modal -->
@@ -380,6 +399,7 @@ document.getElementById('title').innerText=
 
  document.getElementById('resultArea').innerHTML='';
  currentQuestionIndex=0;
+document.getElementById('translationBox').style.display = 'none';
  document.getElementById('reading').innerHTML = exercises[num].passage.replace(/\n/g,'<br>');
  renderQuestions(); renderPagination();
 }
@@ -517,7 +537,115 @@ function hideMenu() {
   document.getElementById('textMenu').style.display = 'none';
 }
 
+// Dữ liệu bài dịch
+const translations = {
 
+  1: `In the scorching heat of Mandalay, hundreds of patients – from infants to the elderly and Buddhist monks – are lying on hospital beds in an outdoor car park.
+(Dưới cái nóng thiêu đốt của Mandalay, hàng trăm bệnh nhân – từ trẻ sơ sinh đến người cao tuổi và các nhà sư Phật giáo – đang nằm trên giường bệnh tại một bãi đỗ xe ngoài trời.)
+
+The people in the city are very worried and waiting for more shaking.
+(Người dân trong thành phố vô cùng lo lắng và đang chờ đợi những cơn rung chấn tiếp theo.)
+
+Despite having approximately 1,000 beds, Mandalay General Hospital has relocated most patients outdoors after a catastrophic earthquake.
+(Mặc dù có khoảng 1.000 giường bệnh, Bệnh viện Đa khoa Mandalay đã phải di dời phần lớn bệnh nhân ra ngoài trời sau một trận động đất thảm khốc.)
+
+The 7.7-magnitude tremor on March 28, accompanied by numerous aftershocks, has forced authorities to keep patients outside to prevent potential injuries from collapsing structures.
+(Cơn địa chấn mạnh 7,7 độ vào ngày 28 tháng 3, kèm theo nhiều dư chấn, đã buộc chính quyền phải giữ bệnh nhân ở bên ngoài để tránh nguy cơ bị thương do các công trình sụp đổ.)
+
+The situation is far from ideal for anyone here at the hospital.
+(Tình hình tại bệnh viện hiện nay hoàn toàn không lý tưởng đối với bất kỳ ai.)
+
+“We’re doing everything possible under these circumstances,” an anonymous medical worker explained to AFP.
+“Chúng tôi đang làm mọi thứ có thể trong hoàn cảnh này,” một nhân viên y tế giấu tên chia sẻ với AFP.
+
+With temperatures reaching 39 degrees Celsius, patients found shelter beneath makeshift tarpaulin covers erected to protect them from the intense sun.
+(Với nhiệt độ lên tới 39 độ C, bệnh nhân trú dưới những tấm bạt tạm bợ được dựng lên để che chắn khỏi ánh nắng gay gắt.)
+
+Family members held their relatives’ hands, offering reassurance, while others used bamboo fans to provide relief.
+(Người thân nắm tay họ để trấn an, trong khi những người khác dùng quạt tre để giảm bớt cái nóng.)
+
+Young children with injuries cried, and a wounded monk lay connected to an intravenous drip.
+(Những đứa trẻ bị thương bật khóc, và một nhà sư bị thương đang nằm truyền dịch.)
+
+Medical staff are equally affected by the crisis.
+(Đội ngũ y tế cũng chịu ảnh hưởng nặng nề từ cuộc khủng hoảng này.)
+
+During brief breaks from their grueling work schedules, healthcare workers sat on the ground, attempting to regain their strength.
+(Trong những khoảng nghỉ ngắn ngủi giữa lịch làm việc kiệt sức, các nhân viên y tế ngồi xuống đất để cố gắng hồi phục sức lực.)
+
+While the hospital structure appeared intact, only critical care patients and attending physicians stayed indoors.
+(Mặc dù cấu trúc bệnh viện dường như vẫn còn nguyên vẹn, chỉ những bệnh nhân cần chăm sóc đặc biệt và các bác sĩ điều trị trực tiếp mới ở lại bên trong.)
+
+Everyone else crowded together under the tarpaulin or found shelter in a nearby area with a metal roof.
+(Tất cả những người khác đều chen chúc dưới các tấm bạt hoặc tìm chỗ trú ở khu vực gần đó có mái kim loại.)`,
+
+  2: `For decades, the SAT has functioned as a main door to higher education in the United States, shaping admissions outcomes and perceptions of academic potential.
+(Trong nhiều thập kỷ, kỳ thi SAT đã đóng vai trò như cánh cửa chính dẫn đến giáo dục đại học tại Hoa Kỳ, định hình kết quả tuyển sinh và cách nhìn nhận về tiềm năng học thuật.)
+
+Originally conceived to measure ability, the test once symbolized fair opportunity.
+(Ban đầu được thiết kế nhằm đo lường năng lực, bài thi này từng tượng trưng cho sự công bằng về cơ hội.)
+
+Yet, in recent years, its fairness and relevance have come under examination, prompting debate about whether standardized testing can represent the complex intelligence of contemporary learners.
+(Tuy nhiên, trong những năm gần đây, tính công bằng và mức độ phù hợp của nó đã bị xem xét lại, làm dấy lên tranh luận về việc liệu các bài kiểm tra tiêu chuẩn hóa có thể phản ánh trí tuệ phức tạp của người học hiện đại hay không.)
+
+As education evolves, the SAT finds itself caught between tradition and the demand for comprehensive methods of student readiness.
+(Khi giáo dục không ngừng phát triển, SAT đang bị mắc kẹt giữa truyền thống và nhu cầu về những phương thức đánh giá toàn diện hơn về sự sẵn sàng của học sinh.)
+
+The College Board's decision to transition the SAT to a fully digital format marks a significant turning point.
+(Quyết định chuyển SAT sang hình thức hoàn toàn kỹ thuật số của College Board đánh dấu một bước ngoặt quan trọng.)
+
+The new SAT, shorter in duration and adaptive in structure, seeks to evaluate reasoning skills with precision and accessibility.
+(Phiên bản SAT mới, với thời lượng ngắn hơn và cấu trúc thích ứng, hướng tới việc đánh giá chính xác kỹ năng tư duy và tăng tính tiếp cận.)
+
+Students now complete the exam on laptops or tablets, receiving results within days rather than weeks.
+(Học sinh hiện nay làm bài trên máy tính xách tay hoặc máy tính bảng và nhận kết quả chỉ trong vài ngày thay vì vài tuần.)
+
+This digital transformation extends beyond logistical convenience; it mirrors the broader reconfiguration of education in the post-pandemic era, where technology has become inseparable from learning and assessment.
+(Sự chuyển đổi số này không chỉ dừng lại ở sự thuận tiện về tổ chức; nó còn phản ánh sự tái cấu trúc rộng lớn của giáo dục trong thời kỳ hậu đại dịch, khi công nghệ đã trở thành yếu tố không thể tách rời khỏi việc học và đánh giá.)
+
+Still, one question remains: can an algorithm truly capture the depth of critical thinking?
+(Tuy vậy, một câu hỏi vẫn còn bỏ ngỏ: liệu một thuật toán có thể thực sự nắm bắt được chiều sâu của tư duy phản biện hay không?)
+
+Equity remains the SAT's most persistent challenge.
+(Công bằng vẫn là thách thức dai dẳng nhất của SAT.)
+
+Critics argue that the exam continues economic and social inequalities, as students from affluent backgrounds often have access to private tutoring and extensive preparation programs that enhance their scores.
+(Những người chỉ trích cho rằng kỳ thi này tiếp tục duy trì bất bình đẳng kinh tế và xã hội, khi học sinh có điều kiện thường được tiếp cận gia sư riêng và các chương trình luyện thi chuyên sâu giúp cải thiện điểm số.)
+
+By contrast, students from under-resourced communities frequently lack comparable support tools.
+(Ngược lại, học sinh từ những cộng đồng thiếu thốn nguồn lực thường không có các công cụ hỗ trợ tương tự.)
+
+Although the College Board has expanded fee waivers and developed free online practice tools through initiatives such as its partnership with Khan Academy, these measures only partially reduce systematic unfairness.
+(Mặc dù College Board đã mở rộng chính sách miễn giảm lệ phí và phát triển công cụ luyện thi miễn phí thông qua các sáng kiến như hợp tác với Khan Academy, những biện pháp này chỉ phần nào giảm bớt sự bất công mang tính hệ thống.)
+
+The test operates within a system where the playing field is far from level, and genuine potential may be obscured by unequal access to educational resources.
+(Bài thi vận hành trong một hệ thống mà “sân chơi” chưa hề công bằng, và tiềm năng thực sự có thể bị che khuất bởi sự chênh lệch trong khả năng tiếp cận nguồn lực giáo dục.)
+
+As an increasing number of universities adopt test-optional or test-blind admissions policies, the SAT faces a critical turning point.
+(Khi ngày càng nhiều trường đại học áp dụng chính sách không bắt buộc hoặc không xét điểm thi, SAT đang đứng trước một bước ngoặt quan trọng.)
+
+Proponents argue that standardized assessments remain necessary for maintaining objectivity, particularly amid grade inflation and different curricular standards across schools.
+(Những người ủng hộ cho rằng các bài kiểm tra tiêu chuẩn hóa vẫn cần thiết để duy trì tính khách quan, đặc biệt trong bối cảnh lạm phát điểm số và sự khác biệt chương trình học giữa các trường.)
+
+The future of academic evaluation may thus lie in balance — where quantitative measures coexist with comprehensive approaches that value creativity, resilience, and lived experience alongside intellectual performance.
+(Vì vậy, tương lai của việc đánh giá học thuật có thể nằm ở sự cân bằng — nơi các thước đo định lượng cùng tồn tại với những phương pháp toàn diện, coi trọng sự sáng tạo, khả năng kiên cường và trải nghiệm thực tế bên cạnh năng lực trí tuệ.)
+
+Whether the SAT endures or diminishes in influence, one principle remains clear: education must evolve not to measure conformity, but to open doors to possibility.
+(Dù SAT tiếp tục tồn tại hay suy giảm ảnh hưởng, một nguyên tắc vẫn rõ ràng: giáo dục cần phát triển không phải để đo lường sự đồng nhất, mà để mở ra những cơ hội mới.)`
+
+};
+
+// Toggle hiển thị bài dịch
+function toggleTranslation(){
+  const box = document.getElementById('translationBox');
+
+  if(box.style.display === 'none'){
+    box.style.display = 'block';
+    box.innerText = translations[currentTest] || 'Chưa có bài dịch cho đoạn này.';
+  } else {
+    box.style.display = 'none';
+  }
+}
 
 window.onload=()=>loadTest(1);
 </script>
